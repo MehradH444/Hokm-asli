@@ -4,25 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#0a1f1c">
-    <title>حکم | بازی کلاسیک کارت ایرانی</title>
-    
+    <title>حکم مستر</title>
     <style>
-        /* ============================================
-           ROOT VARIABLES
-        ============================================ */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         :root {
-            --color-bg-dark: #0a1f1c;
-            --color-bg: #0d2924;
-            --color-bg-card: #1a3d36;
-            --color-bg-light: #2d5a52;
-            --color-gold: #f4d03f;
-            --color-gold-dark: #d4ac0d;
-            --color-gold-light: #f9e79f;
-            --color-gold-glow: rgba(244, 208, 63, 0.3);
-            --color-text: #ffffff;
-            --color-text-secondary: #a0b3b0;
-            --color-text-muted: #6b7f7c;
-            --color-border: rgba(255, 255, 255, 0.1);
+            --bg-dark: #0a1f1c;
+            --bg: #0d2924;
+            --bg-card: #1a3d36;
+            --bg-light: #2d5a52;
+            --bg-blue: #1e3a5f;
+            --bg-purple: #3d2a5f;
+            --gold: #f4d03f;
+            --gold-dark: #d4ac0d;
+            --gold-light: #f9e79f;
+            --gold-glow: rgba(244, 208, 63, 0.3);
+            --green: #16a34a;
+            --green-light: #4ade80;
+            --blue: #3b82f6;
+            --purple: #8b5cf6;
+            --red: #dc2626;
+            --text: #ffffff;
+            --text-secondary: #a0b3b0;
+            --text-muted: #6b7f7c;
+            --border: rgba(255, 255, 255, 0.1);
             --spacing-xs: 4px;
             --spacing-sm: 8px;
             --spacing-md: 16px;
@@ -34,23 +39,14 @@
             --radius-xl: 20px;
             --radius-round: 50%;
             --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.2);
-            --shadow-gold: 0 0 30px var(--color-gold-glow);
-            --transition-normal: 0.3s ease;
-            --font-family: 'Vazirmatn', Tahoma, sans-serif;
-            --header-height: 70px;
-            --bottom-nav-height: 75px;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            --shadow-gold: 0 0 30px var(--gold-glow);
+            --transition: 0.3s ease;
         }
 
         body {
-            font-family: var(--font-family);
-            background: linear-gradient(180deg, var(--color-bg-dark) 0%, var(--color-bg) 100%);
-            color: var(--color-text);
+            font-family: 'Vazirmatn', Tahoma, sans-serif;
+            background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg) 100%);
+            color: var(--text);
             min-height: 100vh;
             overflow-x: hidden;
         }
@@ -61,44 +57,58 @@
             cursor: pointer;
             background: none;
             color: inherit;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        .hidden {
-            display: none !important;
-        }
+        .hidden { display: none !important; }
 
-        /* ============================================
-           SCREENS
-        ============================================ */
         .screen {
             display: none;
             min-height: 100vh;
             animation: fadeIn 0.4s ease;
         }
 
-        .screen.active {
-            display: block;
-        }
+        .screen.active { display: block; }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ============================================
-           SPLASH SCREEN
-        ============================================ */
+        @keyframes crestFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25%, 75% { transform: translateX(-10px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Splash Screen */
         .splash-screen {
             display: flex;
             align-items: center;
             justify-content: center;
             padding: var(--spacing-lg);
-            background: linear-gradient(180deg, var(--color-bg-dark) 0%, #0d2924 50%, var(--color-bg) 100%);
+            background: linear-gradient(180deg, var(--bg-dark) 0%, #0d2924 50%, var(--bg) 100%);
         }
 
-        .splash-screen.active {
-            display: flex;
-        }
+        .splash-screen.active { display: flex; }
 
         .splash-content {
             width: 100%;
@@ -110,7 +120,7 @@
             width: 160px;
             height: 160px;
             margin: 0 auto var(--spacing-xl);
-            background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-dark) 100%);
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
             border-radius: var(--radius-round);
             display: flex;
             flex-direction: column;
@@ -120,15 +130,7 @@
             animation: crestFloat 3s ease-in-out infinite;
         }
 
-        @keyframes crestFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .crest-crown {
-            font-size: 32px;
-            margin-bottom: var(--spacing-sm);
-        }
+        .crest-crown { font-size: 32px; margin-bottom: var(--spacing-sm); }
 
         .crest-symbols {
             display: grid;
@@ -140,14 +142,14 @@
         .game-title {
             font-size: 36px;
             font-weight: 900;
-            background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: var(--spacing-sm);
         }
 
         .game-subtitle {
-            color: var(--color-text-secondary);
+            color: var(--text-secondary);
             font-size: 14px;
             margin-bottom: var(--spacing-xl);
         }
@@ -159,9 +161,7 @@
             margin-bottom: var(--spacing-lg);
         }
 
-        /* ============================================
-           BUTTONS
-        ============================================ */
+        /* Buttons */
         .btn-primary {
             min-height: 56px;
             padding: var(--spacing-md) var(--spacing-lg);
@@ -172,16 +172,14 @@
             align-items: center;
             justify-content: center;
             gap: var(--spacing-sm);
-            transition: var(--transition-normal);
+            transition: var(--transition);
         }
 
-        .btn-primary:active {
-            transform: scale(0.97);
-        }
+        .btn-primary:active { transform: scale(0.97); }
 
         .btn-gold {
-            background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-dark) 100%);
-            color: var(--color-bg-dark);
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+            color: var(--bg-dark);
             box-shadow: var(--shadow-gold);
         }
 
@@ -191,31 +189,54 @@
             border-radius: var(--radius-lg);
             font-size: 16px;
             font-weight: 700;
-            background: var(--color-bg-card);
-            color: var(--color-text);
-            border: 2px solid var(--color-border);
+            background: var(--bg-card);
+            color: var(--text);
+            border: 2px solid var(--border);
         }
 
-        .btn-full {
-            width: 100%;
+        .btn-full { width: 100%; }
+
+        .btn-small {
+            min-height: 36px;
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--radius-md);
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .btn-green {
+            background: var(--green);
+            color: white;
+        }
+
+        .btn-blue {
+            background: var(--blue);
+            color: white;
+        }
+
+        .btn-purple {
+            background: var(--purple);
+            color: white;
+        }
+
+        .btn-danger {
+            background: var(--red);
+            color: white;
         }
 
         .privacy-notice {
             font-size: 12px;
-            color: var(--color-text-muted);
+            color: var(--text-muted);
             line-height: 1.8;
         }
 
-        .privacy-notice a {
-            color: var(--color-gold);
-        }
+        .privacy-notice a { color: var(--gold); }
 
-        /* ============================================
-           LOGIN SCREEN
-        ============================================ */
-        .login-screen {
+        /* Login Screen */
+        .login-screen, .otp-screen {
             padding: var(--spacing-lg);
             padding-top: 80px;
+            position: relative;
         }
 
         .nav-back-btn {
@@ -224,14 +245,14 @@
             left: var(--spacing-lg);
             width: 44px;
             height: 44px;
-            background: var(--color-bg-card);
+            background: var(--bg-card);
             border-radius: var(--radius-round);
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        .login-content {
+        .login-content, .otp-content {
             max-width: 400px;
             margin: 0 auto;
         }
@@ -244,38 +265,36 @@
         }
 
         .screen-description {
-            color: var(--color-text-secondary);
+            color: var(--text-secondary);
             font-size: 14px;
             line-height: 1.8;
             text-align: center;
             margin-bottom: var(--spacing-xl);
         }
 
-        .input-group {
-            margin-bottom: var(--spacing-lg);
-        }
+        .input-group { margin-bottom: var(--spacing-lg); }
 
         .input-label {
             display: block;
             margin-bottom: var(--spacing-sm);
             font-size: 12px;
-            color: var(--color-text-secondary);
+            color: var(--text-secondary);
             font-weight: 600;
         }
 
         .phone-input-wrapper {
             display: flex;
             align-items: center;
-            background: var(--color-bg-card);
-            border: 2px solid var(--color-border);
+            background: var(--bg-card);
+            border: 2px solid var(--border);
             border-radius: var(--radius-lg);
             padding: var(--spacing-xs);
-            transition: var(--transition-normal);
+            transition: var(--transition);
         }
 
         .phone-input-wrapper:focus-within {
-            border-color: var(--color-gold);
-            box-shadow: 0 0 0 3px var(--color-gold-glow);
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px var(--gold-glow);
         }
 
         .country-selector {
@@ -283,7 +302,7 @@
             align-items: center;
             gap: var(--spacing-sm);
             padding: var(--spacing-md);
-            background: var(--color-bg-light);
+            background: var(--bg-light);
             border-radius: var(--radius-md);
             font-weight: 700;
         }
@@ -298,7 +317,7 @@
         .phone-input {
             flex: 1;
             padding: var(--spacing-md);
-            color: var(--color-text);
+            color: var(--text);
             font-size: 16px;
             direction: ltr;
             text-align: right;
@@ -307,23 +326,9 @@
             outline: none;
         }
 
-        .phone-input::placeholder {
-            color: var(--color-text-muted);
-        }
+        .phone-input::placeholder { color: var(--text-muted); }
 
-        /* ============================================
-           OTP SCREEN
-        ============================================ */
-        .otp-screen {
-            padding: var(--spacing-lg);
-            padding-top: 80px;
-        }
-
-        .otp-content {
-            max-width: 400px;
-            margin: 0 auto;
-        }
-
+        /* OTP Screen */
         .phone-display {
             display: flex;
             align-items: center;
@@ -335,16 +340,13 @@
         .phone-number {
             font-size: 16px;
             font-weight: 700;
-            color: var(--color-gold);
+            color: var(--gold);
         }
 
         .change-phone-btn {
             font-size: 12px;
-            color: var(--color-gold);
+            color: var(--gold);
             text-decoration: underline;
-            background: none;
-            border: none;
-            cursor: pointer;
         }
 
         .code-inputs {
@@ -357,25 +359,25 @@
         .code-input {
             width: 50px;
             height: 60px;
-            border: 2px solid var(--color-border);
+            border: 2px solid var(--border);
             border-radius: var(--radius-md);
-            background: var(--color-bg-card);
-            color: var(--color-text);
+            background: var(--bg-card);
+            color: var(--text);
             font-size: 24px;
             font-weight: 700;
             text-align: center;
-            transition: var(--transition-normal);
+            transition: var(--transition);
         }
 
         .code-input:focus {
-            border-color: var(--color-gold);
-            box-shadow: 0 0 0 3px var(--color-gold-glow);
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px var(--gold-glow);
             transform: scale(1.05);
             outline: none;
         }
 
         .code-input.filled {
-            border-color: var(--color-gold);
+            border-color: var(--gold);
             background: rgba(244, 208, 63, 0.1);
         }
 
@@ -389,51 +391,41 @@
             align-items: center;
             justify-content: center;
             gap: var(--spacing-sm);
-            color: var(--color-text-secondary);
+            color: var(--text-secondary);
             font-size: 14px;
             margin-bottom: var(--spacing-sm);
         }
 
-        .countdown {
-            font-weight: 700;
-            color: var(--color-gold);
-        }
+        .countdown { font-weight: 700; color: var(--gold); }
 
         .resend-btn {
             padding: var(--spacing-sm) var(--spacing-md);
             border-radius: var(--radius-md);
             font-size: 12px;
             font-weight: 700;
-            color: var(--color-gold);
-            background: none;
-            border: none;
-            cursor: pointer;
+            color: var(--gold);
         }
 
         .resend-btn.disabled {
-            color: var(--color-text-muted);
+            color: var(--text-muted);
             cursor: not-allowed;
         }
 
-        /* ============================================
-           MAIN SCREEN
-        ============================================ */
-        .main-screen {
-            padding-bottom: var(--bottom-nav-height);
-        }
+        /* Main Screen */
+        .main-screen { padding-bottom: 75px; }
 
         .main-header {
             position: sticky;
             top: 0;
             z-index: 100;
-            height: var(--header-height);
+            height: 70px;
             padding: var(--spacing-md);
             display: flex;
             align-items: center;
             justify-content: space-between;
             background: rgba(10, 31, 28, 0.95);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--color-border);
+            border-bottom: 1px solid var(--border);
         }
 
         .header-right, .header-left {
@@ -454,11 +446,13 @@
             width: 40px;
             height: 40px;
             border-radius: var(--radius-round);
-            background: var(--color-bg-card);
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 20px;
+            font-weight: 900;
+            color: var(--bg-dark);
         }
 
         .user-info {
@@ -467,18 +461,12 @@
             gap: 2px;
         }
 
-        .username {
-            font-size: 12px;
-            font-weight: 700;
-        }
+        .username { font-size: 12px; font-weight: 700; }
 
-        .level-badge {
-            font-size: 10px;
-            color: var(--color-text-secondary);
-        }
+        .level-badge { font-size: 10px; color: var(--text-secondary); }
 
         .currency-btn {
-            background: var(--color-bg-card);
+            background: var(--bg-card);
             padding: var(--spacing-sm) var(--spacing-md);
             border-radius: var(--radius-round);
             display: flex;
@@ -486,10 +474,7 @@
             gap: var(--spacing-sm);
         }
 
-        .currency-amount {
-            font-size: 12px;
-            font-weight: 700;
-        }
+        .currency-amount { font-size: 12px; font-weight: 700; }
 
         .icon-btn {
             width: 40px;
@@ -498,6 +483,8 @@
             align-items: center;
             justify-content: center;
             font-size: 20px;
+            border-radius: var(--radius-round);
+            background: var(--bg-card);
         }
 
         .page-container {
@@ -507,25 +494,116 @@
             padding: var(--spacing-md);
         }
 
-        .page {
-            display: none;
-        }
+        .page { display: none; }
 
         .page.active-page {
             display: block;
             animation: fadeIn 0.3s ease;
         }
 
+        /* Home Page */
         .home-content {
             display: flex;
             flex-direction: column;
             gap: var(--spacing-md);
         }
 
-        .section-title {
+        .home-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .home-logo {
+            text-align: center;
+            flex: 1;
+        }
+
+        .home-logo-icon {
+            font-size: 48px;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .home-logo-text {
+            font-size: 24px;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .home-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .home-card {
+            padding: var(--spacing-md);
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+        }
+
+        .home-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .home-card-title {
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .home-card-value {
             font-size: 20px;
+            font-weight: 900;
+            color: var(--gold);
+        }
+
+        .home-card-desc {
+            font-size: 10px;
+            color: var(--text-secondary);
+        }
+
+        .quick-play-card {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+            color: var(--bg-dark);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .quick-play-title {
+            font-size: 24px;
+            font-weight: 900;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .quick-play-desc {
+            font-size: 12px;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .section-title {
+            font-size: 18px;
             font-weight: 800;
             margin-bottom: var(--spacing-md);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: var(--gold);
+            border-radius: 2px;
         }
 
         .modes-grid {
@@ -536,44 +614,327 @@
 
         .mode-card {
             padding: var(--spacing-lg);
-            background: var(--color-bg-card);
+            background: var(--bg-card);
             border-radius: var(--radius-lg);
-            border: 1px solid var(--color-border);
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--spacing-sm);
+            transition: var(--transition);
+        }
+
+        .mode-card:active { transform: scale(0.97); }
+
+        .mode-card.locked {
+            opacity: 0.6;
+            position: relative;
+        }
+
+        .mode-card.locked::after {
+            content: '🔒';
+            position: absolute;
+            top: var(--spacing-sm);
+            left: var(--spacing-sm);
+            font-size: 20px;
+        }
+
+        .mode-icon { font-size: 32px; }
+
+        .mode-card strong { font-size: 14px; }
+
+        .mode-card small {
+            font-size: 10px;
+            color: var(--text-secondary);
+        }
+
+        /* Game Table */
+        .game-screen {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(135deg, #1a5c3a 0%, #0d3d24 100%);
+            z-index: 500;
+        }
+
+        .game-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: var(--spacing-md);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, transparent 100%);
+        }
+
+        .game-score {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            background: rgba(0,0,0,0.5);
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--radius-md);
+        }
+
+        .team-score {
+            text-align: center;
+        }
+
+        .team-score span {
+            font-size: 10px;
+            color: var(--text-secondary);
+        }
+
+        .team-score strong {
+            font-size: 20px;
+            display: block;
+        }
+
+        .score-divider {
+            font-size: 20px;
+            color: var(--text-secondary);
+        }
+
+        .game-table {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .player-position {
+            position: absolute;
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: var(--spacing-sm);
         }
 
-        .mode-card:active {
-            transform: scale(0.97);
+        .player-position.top { top: 80px; }
+        .player-position.bottom { bottom: 120px; }
+        .player-position.left { left: 20px; top: 50%; transform: translateY(-50%); }
+        .player-position.right { right: 20px; top: 50%; transform: translateY(-50%); }
+
+        .player-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--radius-round);
+            background: var(--bg-card);
+            border: 3px solid var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 900;
         }
 
-        .mode-icon {
+        .player-avatar.active {
+            box-shadow: 0 0 20px var(--gold);
+            animation: pulse 1s infinite;
+        }
+
+        .player-name {
+            font-size: 12px;
+            font-weight: 700;
+            background: rgba(0,0,0,0.7);
+            padding: 2px 8px;
+            border-radius: var(--radius-sm);
+        }
+
+        .trump-display {
+            position: absolute;
+            top: 100px;
+            background: rgba(0,0,0,0.7);
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .trump-display strong {
+            font-size: 24px;
+        }
+
+        .trick-area {
+            width: 200px;
+            height: 200px;
+            position: relative;
+        }
+
+        .played-card {
+            position: absolute;
+            width: 50px;
+            height: 70px;
+            background: white;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .played-card.top { top: 0; left: 50%; transform: translateX(-50%); }
+        .played-card.bottom { bottom: 0; left: 50%; transform: translateX(-50%); }
+        .played-card.left { left: 0; top: 50%; transform: translateY(-50%); }
+        .played-card.right { right: 0; top: 50%; transform: translateY(-50%); }
+
+        .player-hand {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: -10px;
+        }
+
+        .hand-card {
+            width: 50px;
+            height: 70px;
+            background: white;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: var(--shadow-md);
+            margin-right: -15px;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .hand-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .hand-card.selected {
+            transform: translateY(-20px);
+            box-shadow: 0 0 20px var(--gold);
+        }
+
+        /* Trump Selection Modal */
+        .trump-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.9);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 600;
+        }
+
+        .trump-modal.active { display: flex; }
+
+        .trump-content {
+            text-align: center;
+        }
+
+        .trump-title {
+            font-size: 24px;
+            font-weight: 900;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .trump-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--spacing-md);
+        }
+
+        .trump-option {
+            width: 80px;
+            height: 100px;
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            border: 3px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .trump-option:hover {
+            border-color: var(--gold);
+            transform: scale(1.1);
+        }
+
+        /* Match Result */
+        .result-screen {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.95);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 700;
+            padding: var(--spacing-lg);
+        }
+
+        .result-screen.active { display: flex; }
+
+        .result-content {
+            text-align: center;
+            max-width: 400px;
+        }
+
+        .result-icon {
+            font-size: 80px;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .result-title {
             font-size: 32px;
+            font-weight: 900;
+            margin-bottom: var(--spacing-md);
         }
 
-        .mode-card strong {
-            font-size: 14px;
+        .result-title.win { color: var(--gold); }
+        .result-title.lose { color: var(--red); }
+
+        .result-score {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: var(--spacing-lg);
+            margin: var(--spacing-lg) 0;
+            padding: var(--spacing-md);
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
         }
 
-        .mode-card small {
-            font-size: 10px;
-            color: var(--color-text-secondary);
+        .result-rewards {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-lg);
+            margin: var(--spacing-lg) 0;
         }
 
-        /* ============================================
-           BOTTOM NAVIGATION
-        ============================================ */
+        .reward-item {
+            text-align: center;
+        }
+
+        .reward-icon { font-size: 32px; }
+
+        .reward-value {
+            font-size: 20px;
+            font-weight: 900;
+            color: var(--gold);
+        }
+
+        /* Bottom Navigation */
         .bottom-nav {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            height: var(--bottom-nav-height);
+            height: 75px;
             background: rgba(10, 31, 28, 0.98);
             backdrop-filter: blur(10px);
-            border-top: 1px solid var(--color-border);
+            border-top: 1px solid var(--border);
             display: flex;
             justify-content: space-around;
             align-items: center;
@@ -589,20 +950,15 @@
             gap: 2px;
             padding: var(--spacing-sm);
             font-size: 10px;
-            color: var(--color-text-secondary);
+            color: var(--text-secondary);
+            transition: var(--transition);
         }
 
-        .nav-item.active {
-            color: var(--color-gold);
-        }
+        .nav-item.active { color: var(--gold); }
 
-        .nav-icon {
-            font-size: 20px;
-        }
+        .nav-icon { font-size: 20px; }
 
-        /* ============================================
-           MODAL
-        ============================================ */
+        /* Modal */
         .modal-overlay {
             position: fixed;
             inset: 0;
@@ -614,18 +970,16 @@
             padding: var(--spacing-lg);
         }
 
-        .modal-overlay.active {
-            display: flex;
-        }
+        .modal-overlay.active { display: flex; }
 
         .modal {
-            background: var(--color-bg-card);
+            background: var(--bg-card);
             border-radius: var(--radius-xl);
             padding: var(--spacing-xl);
             max-width: 400px;
             width: 100%;
             text-align: center;
-            border: 2px solid var(--color-gold);
+            border: 2px solid var(--gold);
         }
 
         .modal-icon {
@@ -640,18 +994,18 @@
         }
 
         .modal-description {
-            color: var(--color-text-secondary);
+            color: var(--text-secondary);
             font-size: 14px;
             margin-bottom: var(--spacing-md);
         }
 
         .modal-code {
-            background: var(--color-bg-dark);
+            background: var(--bg-dark);
             padding: var(--spacing-md);
             border-radius: var(--radius-md);
             font-size: 16px;
             font-weight: 700;
-            color: var(--color-gold);
+            color: var(--gold);
             margin-bottom: var(--spacing-lg);
         }
 
@@ -667,9 +1021,7 @@
             font-weight: 700;
         }
 
-        /* ============================================
-           TOAST
-        ============================================ */
+        /* Toast */
         .toast-container {
             position: fixed;
             top: 20px;
@@ -679,39 +1031,242 @@
             display: flex;
             flex-direction: column;
             gap: var(--spacing-sm);
+            pointer-events: none;
         }
 
         .toast {
             padding: var(--spacing-md);
-            background: var(--color-bg-card);
+            background: var(--bg-card);
             border-radius: var(--radius-md);
-            border: 1px solid var(--color-border);
+            border: 1px solid var(--border);
             animation: slideDown 0.3s ease;
+            pointer-events: auto;
         }
 
-        .toast.success {
-            border-color: var(--color-gold);
+        .toast.success { border-color: var(--green); }
+        .toast.error { border-color: var(--red); }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
         }
 
-        .toast.error {
-            border-color: #dc2626;
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-sm);
         }
 
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .card-title {
+            font-size: 16px;
+            font-weight: 700;
         }
 
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
+        .card-value {
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--gold);
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            height: 8px;
+            background: var(--bg-light);
+            border-radius: var(--radius-round);
+            overflow: hidden;
+            margin: var(--spacing-sm) 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 100%);
+            border-radius: var(--radius-round);
+            transition: width var(--transition);
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-md);
+            overflow-x: auto;
+            padding-bottom: var(--spacing-sm);
+        }
+
+        .tab {
+            padding: var(--spacing-sm) var(--spacing-md);
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            font-size: 12px;
+            font-weight: 700;
+            white-space: nowrap;
+            transition: var(--transition);
+        }
+
+        .tab.active {
+            background: var(--gold);
+            color: var(--bg-dark);
+        }
+
+        /* List Items */
+        .list-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            padding: var(--spacing-md);
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--spacing-sm);
+            border: 1px solid var(--border);
+        }
+
+        .list-item-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-round);
+            background: var(--bg-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .list-item-content {
+            flex: 1;
+        }
+
+        .list-item-title {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .list-item-desc {
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        .list-item-value {
+            font-size: 16px;
+            font-weight: 900;
+            color: var(--gold);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: var(--spacing-xl);
+        }
+
+        .empty-icon {
+            font-size: 64px;
+            margin-bottom: var(--spacing-md);
+            opacity: 0.5;
+        }
+
+        .empty-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .empty-desc {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* Toggle */
+        .toggle {
+            width: 50px;
+            height: 26px;
+            background: var(--bg-light);
+            border-radius: var(--radius-round);
+            position: relative;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .toggle.active {
+            background: var(--gold);
+        }
+
+        .toggle::after {
+            content: '';
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            background: white;
+            border-radius: var(--radius-round);
+            top: 2px;
+            right: 2px;
+            transition: var(--transition);
+        }
+
+        .toggle.active::after {
+            right: 26px;
+        }
+
+        /* Input */
+        .input {
+            width: 100%;
+            padding: var(--spacing-md);
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-md);
+            color: var(--text);
+            font-size: 14px;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .input:focus {
+            border-color: var(--gold);
+        }
+
+        .input::placeholder {
+            color: var(--text-muted);
+        }
+
+        /* Badge */
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: var(--radius-sm);
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .badge-gold {
+            background: var(--gold);
+            color: var(--bg-dark);
+        }
+
+        .badge-green {
+            background: var(--green);
+            color: white;
+        }
+
+        .badge-purple {
+            background: var(--purple);
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .game-title { font-size: 32px; }
+            .logo-crest { width: 140px; height: 140px; }
+            .code-input { width: 45px; height: 55px; }
         }
     </style>
 </head>
 <body>
 
-    <div id="app" class="app">
+    <div id="app">
 
         <!-- SPLASH SCREEN -->
         <section id="splash-screen" class="screen splash-screen active">
@@ -725,22 +1280,18 @@
                         <span>♣</span>
                     </div>
                 </div>
-                
-                <h1 class="game-title">حکم</h1>
+                <h1 class="game-title">حکم مستر</h1>
                 <p class="game-subtitle">بازی کلاسیک کارت ایرانی</p>
-                
                 <div class="splash-buttons">
                     <button id="btn-phone-login" class="btn-primary btn-gold btn-full">
                         <span>📱</span>
                         <span>ورود با شماره موبایل</span>
                     </button>
-                    
                     <button id="btn-guest-login" class="btn-secondary btn-full">
-                        <span></span>
+                        <span>👤</span>
                         <span>ادامه به‌عنوان مهمان</span>
                     </button>
                 </div>
-                
                 <p class="privacy-notice">
                     با ادامه، شما با <a href="#">حریم خصوصی</a> موافقت می‌کنید
                 </p>
@@ -754,30 +1305,19 @@
                     <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
                 </svg>
             </button>
-            
             <div class="login-content">
                 <h1 class="screen-title">ورود با موبایل</h1>
-                <p class="screen-description">
-                    شماره موبایل خود را وارد کنید تا کد تأیید برایتان ارسال شود.
-                </p>
-                
+                <p class="screen-description">شماره موبایل خود را وارد کنید تا کد تأیید برایتان ارسال شود.</p>
                 <div class="input-group">
                     <label class="input-label">شماره موبایل</label>
                     <div class="phone-input-wrapper">
                         <div class="country-selector">
                             <span class="flag-icon"></span>
-                            <span>+۹۸</span>
+                            <span>+۸</span>
                         </div>
-                        <input 
-                            type="tel" 
-                            id="phone-input" 
-                            class="phone-input" 
-                            placeholder="۱۲ ۳۴۵ ۷۸۹"
-                            maxlength="11"
-                        >
+                        <input type="tel" id="phone-input" class="phone-input" placeholder="۱۲ ۳۴۵ ۷۸" maxlength="11">
                     </div>
                 </div>
-                
                 <button id="btn-send-code" class="btn-primary btn-gold btn-full">
                     <span>ادامه</span>
                     <span>←</span>
@@ -792,17 +1332,13 @@
                     <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
                 </svg>
             </button>
-            
             <div class="otp-content">
                 <h1 class="screen-title">تأیید شماره موبایل</h1>
                 <div class="phone-display">
                     <span id="display-phone" class="phone-number"></span>
                     <button id="btn-change-phone" class="change-phone-btn">تغییر</button>
                 </div>
-                <p class="screen-description">
-                    کد ۶ رقمی ارسال‌شده به شماره بالا را وارد کنید
-                </p>
-                
+                <p class="screen-description">کد ۶ رقمی ارسال‌شده به شماره بالا را وارد کنید</p>
                 <div class="code-inputs" id="code-inputs">
                     <input type="tel" class="code-input" maxlength="1" data-index="0">
                     <input type="tel" class="code-input" maxlength="1" data-index="1">
@@ -811,15 +1347,13 @@
                     <input type="tel" class="code-input" maxlength="1" data-index="4">
                     <input type="tel" class="code-input" maxlength="1" data-index="5">
                 </div>
-                
                 <div class="resend-section">
                     <div class="timer-display">
-                        <span></span>
+                        <span>⏱</span>
                         <span>ارسال مجدد در <span id="countdown" class="countdown">۶۰</span> ثانیه</span>
                     </div>
                     <button id="btn-resend" class="resend-btn disabled">ارسال مجدد کد</button>
                 </div>
-                
                 <button id="btn-verify-code" class="btn-primary btn-gold btn-full">
                     <span>تأیید</span>
                     <span>→</span>
@@ -831,93 +1365,454 @@
         <section id="main-screen" class="screen main-screen hidden">
             <header class="main-header">
                 <div class="header-right">
-                    <button class="header-btn">
-                        <div class="avatar-small"></div>
+                    <button class="header-btn" onclick="app.showPage('profile')">
+                        <div class="avatar-small" id="header-avatar">P</div>
                         <div class="user-info">
                             <span class="username" id="header-username">بازیکن</span>
                             <span class="level-badge" id="header-level">سطح ۱</span>
                         </div>
                     </button>
                 </div>
-                
                 <div class="header-left">
-                    <button class="currency-btn">
+                    <button class="currency-btn" onclick="app.showPage('wallet')">
                         <span>🪙</span>
-                        <span class="currency-amount" id="header-coins">,۰۰۰</span>
+                        <span class="currency-amount" id="header-coins">۱,۰۰۰</span>
                     </button>
                     <button class="icon-btn">🔔</button>
-                    <button class="icon-btn" id="btn-settings">⚙️</button>
+                    <button class="icon-btn" onclick="app.showPage('settings')">⚙️</button>
                 </div>
             </header>
 
             <main class="page-container">
+                <!-- Home Page -->
                 <div id="home-page" class="page active-page">
                     <div class="home-content">
-                        <h2 class="section-title">حالت‌های بازی</h2>
+                        <div class="home-top">
+                            <div></div>
+                            <div class="home-logo">
+                                <div class="home-logo-icon">👑</div>
+                                <div class="home-logo-text">حکم مستر</div>
+                            </div>
+                            <div></div>
+                        </div>
+
+                        <div class="home-cards">
+                            <div class="home-card">
+                                <div class="home-card-header">
+                                    <span class="home-card-title">🔥 جوایز روزانه</span>
+                                </div>
+                                <div class="home-card-value">۵</div>
+                                <div class="home-card-desc">سکه</div>
+                                <button class="btn-small btn-gold btn-full" style="margin-top: 8px;">دریافت</button>
+                            </div>
+                            <div class="home-card">
+                                <div class="home-card-header">
+                                    <span class="home-card-title">🎁 پاداش</span>
+                                </div>
+                                <div class="home-card-title" style="font-size: 16px;">سکه رایگان</div>
+                                <div class="home-card-desc">تماشای ویدیو یا دعوت دوستان</div>
+                            </div>
+                        </div>
+
+                        <div class="quick-play-card">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                <span style="font-size: 12px; background: rgba(0,0,0,0.3); padding: 4px 8px; border-radius: 4px;"> بازی فوری</span>
+                            </div>
+                            <div class="quick-play-title">بازی سریع</div>
+                            <div class="quick-play-desc">همین الان به یک میز بپیوند</div>
+                            <button class="btn-primary btn-green" style="min-height: 48px;" onclick="app.startQuickMatch()">
+                                <span>شروع</span>
+                                <span>▶</span>
+                            </button>
+                        </div>
+
+                        <div class="section-title">سایر حالت‌های بازی</div>
                         <div class="modes-grid">
-                            <button class="mode-card">
-                                <div class="mode-icon"></div>
-                                <strong>سریع</strong>
-                                <small>بازی تصادفی</small>
-                            </button>
-                            <button class="mode-card">
-                                <div class="mode-icon">🏆</div>
-                                <strong>رقابتی</strong>
-                                <small>افزایش رتبه</small>
-                            </button>
-                            <button class="mode-card">
+                            <button class="mode-card" onclick="app.showPage('private-room')">
                                 <div class="mode-icon">👥</div>
-                                <strong>خصوصی</strong>
-                                <small>با دوستان</small>
+                                <strong>اتاق خصوصی</strong>
+                                <small>اتاق خصوصی با دوستانت</small>
                             </button>
-                            <button class="mode-card">
-                                <div class="mode-icon">🤖</div>
-                                <strong>تمرینی</strong>
-                                <small>با هوش مصنوعی</small>
+                            <button class="mode-card" onclick="app.showPage('tournaments')">
+                                <div class="mode-icon">🏆</div>
+                                <strong>تورنمنت‌ها</strong>
+                                <small>مسابقات فعال و آینده</small>
                             </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile Page -->
+                <div id="profile-page" class="page">
+                    <div style="text-align: center; padding: var(--spacing-lg) 0;">
+                        <div class="avatar-small" style="width: 100px; height: 100px; font-size: 40px; margin: 0 auto 16px;">P</div>
+                        <h2 id="profile-username" style="font-size: 24px; margin-bottom: 8px;">Player86515</h2>
+                        <div style="display: flex; justify-content: center; gap: 16px; margin-bottom: 24px;">
+                            <div class="badge badge-gold">سطح ۱</div>
+                            <div class="badge badge-green">تازه‌کار</div>
+                        </div>
+                    </div>
+
+                    <div class="section-title">درجه فصل</div>
+                    <div class="card">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                            <span>تازه‌کار</span>
+                            <span style="font-size: 12px; color: var(--text-secondary);">امتیاز فصل ۰</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <div style="font-size: 12px; color: var(--text-secondary);">۴۰ امتیاز تا سرباز ۱</div>
+                    </div>
+
+                    <div class="section-title">پیشرفت</div>
+                    <div class="card">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                            <span>سطح ۱</span>
+                            <span style="font-size: 12px; color: var(--text-secondary);">تجربه کل ۰</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <div style="font-size: 12px; color: var(--text-secondary);">۱۰ تجربه تا سطح ۲</div>
+                    </div>
+                </div>
+
+                <!-- Leaderboard Page -->
+                <div id="leaderboard-page" class="page">
+                    <h2 class="screen-title">جدول رده‌بندی</h2>
+                    <div class="tabs">
+                        <button class="tab active">فصل</button>
+                        <button class="tab">هفتگی</button>
+                        <button class="tab">روزانه</button>
+                        <button class="tab">کل</button>
+                    </div>
+
+                    <div style="text-align: center; margin-bottom: 24px;">
+                        <div style="font-size: 48px; margin-bottom: 8px;">👑</div>
+                    </div>
+
+                    <div class="list-item">
+                        <div class="list-item-icon">🥇</div>
+                        <div class="list-item-content">
+                            <div class="list-item-title">hamed 11</div>
+                            <div class="list-item-desc">شاهنشاه</div>
+                        </div>
+                        <div class="list-item-value">۴۹,۷۴۶</div>
+                    </div>
+
+                    <div class="list-item">
+                        <div class="list-item-icon">🥈</div>
+                        <div class="list-item-content">
+                            <div class="list-item-title">AMIN..KING</div>
+                            <div class="list-item-desc">شاهنشاه</div>
+                        </div>
+                        <div class="list-item-value">۴,۲۸۳</div>
+                    </div>
+
+                    <div class="list-item">
+                        <div class="list-item-icon"></div>
+                        <div class="list-item-content">
+                            <div class="list-item-title">Kave</div>
+                            <div class="list-item-desc">شاهنشاه</div>
+                        </div>
+                        <div class="list-item-value">۴۷,۵۸</div>
+                    </div>
+                </div>
+
+                <!-- Friends Page -->
+                <div id="friends-page" class="page">
+                    <h2 class="screen-title">دوستان</h2>
+                    <div class="tabs">
+                        <button class="tab active">دوستان</button>
+                        <button class="tab">درخواست‌ها</button>
+                        <button class="tab">جستجو</button>
+                    </div>
+                    <div class="empty-state">
+                        <div class="empty-icon">👥</div>
+                        <div class="empty-title">هنوز دوستی اضافه نکرده‌ای.</div>
+                    </div>
+                </div>
+
+                <!-- Settings Page -->
+                <div id="settings-page" class="page">
+                    <h2 class="screen-title">تنظیمات</h2>
+
+                    <div class="section-title">دستگاه</div>
+                    <div class="card">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                            <div>
+                                <div style="font-weight: 700;">لرزش</div>
+                                <div style="font-size: 12px; color: var(--text-secondary);">بازخورد لمسی هنگام ضربه و رویدادها</div>
+                            </div>
+                            <div class="toggle active" onclick="this.classList.toggle('active')"></div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                            <div>
+                                <div style="font-weight: 700;">افکت‌های صوتی</div>
+                                <div style="font-size: 12px; color: var(--text-secondary);">صدای کارت، چیپ و دکمه‌ها</div>
+                            </div>
+                            <div class="toggle active" onclick="this.classList.toggle('active')"></div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div style="font-weight: 700;">موسیقی</div>
+                                <div style="font-size: 12px; color: var(--text-secondary);">موسیقی پس‌زمینه بازی</div>
+                            </div>
+                            <div class="toggle active" onclick="this.classList.toggle('active')"></div>
+                        </div>
+                    </div>
+
+                    <div class="section-title">حساب</div>
+                    <div class="card">
+                        <button class="btn-full" style="padding: 12px; text-align: right; margin-bottom: 8px;">
+                            <span>ویرایش پروفایل</span>
+                            <span style="float: left;">←</span>
+                        </button>
+                        <button class="btn-full" style="padding: 12px; text-align: right; margin-bottom: 8px;" onclick="app.logout()">
+                            <span>خروج</span>
+                            <span style="float: left;">←</span>
+                        </button>
+                        <button class="btn-full btn-danger" style="padding: 12px; text-align: right;">
+                            <span>حذف حساب</span>
+                            <span style="float: left;">←</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Wallet Page -->
+                <div id="wallet-page" class="page">
+                    <h2 class="screen-title">کیف پول</h2>
+                    <div class="card" style="background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%); color: var(--bg-dark);">
+                        <div style="font-size: 14px; margin-bottom: 8px;">موجودی سکه</div>
+                        <div style="font-size: 36px; font-weight: 900; margin-bottom: 16px;">۱۰,۰۰۰</div>
+                        <button class="btn-primary btn-full" style="background: var(--bg-dark); color: var(--gold);">
+                            <span>خرید سکه</span>
+                            <span></span>
+                        </button>
+                    </div>
+
+                    <div class="section-title">تاریخچه تراکنش‌ها</div>
+                    <div class="list-item">
+                        <div class="list-item-icon" style="background: var(--green);">🎁</div>
+                        <div class="list-item-content">
+                            <div class="list-item-title">جایزه</div>
+                            <div class="list-item-desc">۳ ساعت پیش</div>
+                        </div>
+                        <div style="text-align: left;">
+                            <div style="color: var(--green); font-weight: 900;">+۱۰,۰۰۰</div>
+                            <div style="font-size: 11px; color: var(--text-secondary);">موجودی ۱۰,۰۰۰</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tournaments Page -->
+                <div id="tournaments-page" class="page">
+                    <h2 class="screen-title">تورنمنت‌ها</h2>
+                    <div class="tabs">
+                        <button class="tab active">تورنمنت‌ها</button>
+                        <button class="tab">قهرمانان</button>
+                    </div>
+
+                    <div class="card">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                            <span style="font-size: 18px; font-weight: 900;">🏆 جام اصفهان(۲)</span>
+                        </div>
+                        <div style="display: flex; gap: 8px; margin-bottom: 16px;">
+                            <span class="badge badge-green">پایان‌یافته</span>
+                            <span class="badge badge-purple">تک حذفی</span>
+                        </div>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
+                            <div style="text-align: center;">
+                                <div style="font-size: 12px; color: var(--text-secondary);">شروع</div>
+                                <div style="font-weight: 700;">زنده</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="font-size: 12px; color: var(--text-secondary);">ورودی</div>
+                                <div style="font-weight: 700;">,۰۰۰</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="font-size: 12px; color: var(--text-secondary);">ظرفیت</div>
+                                <div style="font-weight: 700;">۲۸</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Private Room Page -->
+                <div id="private-room-page" class="page">
+                    <h2 class="screen-title">اتاق خصوصی</h2>
+                    <p class="screen-description">بازی با دوستان. اتاق بساز یا با کد بپیوند.</p>
+
+                    <div class="card" style="border: 2px solid var(--gold);">
+                        <div style="display: flex; align-items: center; gap: 16px;">
+                            <div style="width: 60px; height: 60px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 32px;">+</div>
+                            <div style="flex: 1;">
+                                <div style="font-weight: 700; font-size: 18px; margin-bottom: 4px;">ساخت اتاق</div>
+                                <div style="font-size: 12px; color: var(--text-secondary);">میزبان شو. کد را با دوستانت به اشتراک بگذار.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" style="border: 2px solid var(--blue);">
+                        <div style="display: flex; align-items: center; gap: 16px;">
+                            <div style="width: 60px; height: 60px; background: var(--blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 32px;">#</div>
+                            <div style="flex: 1;">
+                                <div style="font-weight: 700; font-size: 18px; margin-bottom: 4px;">ورود با کد</div>
+                                <div style="font-size: 12px; color: var(--text-secondary);">کد دعوت ۵ رقمی از یک دوست.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" style="border: 2px solid var(--green);">
+                        <div style="display: flex; align-items: center; gap: 16px;">
+                            <div style="width: 60px; height: 60px; background: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 32px;"></div>
+                            <div style="flex: 1;">
+                                <div style="font-weight: 700; font-size: 18px; margin-bottom: 4px;">اتاق‌های اشتراکی</div>
+                                <div style="font-size: 12px; color: var(--text-secondary);">به اتاقی که کسی به اشتراک گذاشته بپیوندید</div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </main>
 
             <nav class="bottom-nav">
-                <button class="nav-item active">
+                <button class="nav-item active" onclick="app.showPage('home')">
                     <span class="nav-icon">🏠</span>
                     <span>خانه</span>
                 </button>
-                <button class="nav-item">
+                <button class="nav-item" onclick="app.showPage('leaderboard')">
                     <span class="nav-icon">🏆</span>
-                    <span>رتبه‌بندی</span>
+                    <span>جدول</span>
                 </button>
-                <button class="nav-item">
-                    <span class="nav-icon"></span>
-                    <span>بازی</span>
-                </button>
-                <button class="nav-item">
-                    <span class="nav-icon">👥</span>
-                    <span>دوستان</span>
-                </button>
-                <button class="nav-item">
+                <button class="nav-item" onclick="app.showPage('friends')">
                     <span class="nav-icon">👤</span>
                     <span>پروفایل</span>
                 </button>
+                <button class="nav-item" onclick="app.showPage('settings')">
+                    <span class="nav-icon"></span>
+                    <span>بیشتر</span>
+                </button>
             </nav>
         </section>
+
+        <!-- GAME SCREEN -->
+        <section id="game-screen" class="screen game-screen hidden">
+            <div class="game-header">
+                <div class="game-score">
+                    <div class="team-score">
+                        <span>تیم شما</span>
+                        <strong id="team-score">0</strong>
+                    </div>
+                    <div class="score-divider">:</div>
+                    <div class="team-score">
+                        <span>حریف</span>
+                        <strong id="opponent-score">0</strong>
+                    </div>
+                </div>
+                <button class="icon-btn" onclick="app.leaveGame()"></button>
+            </div>
+
+            <div class="game-table">
+                <div class="player-position top">
+                    <div class="player-avatar">🤖</div>
+                    <div class="player-name">بازیکن ۲</div>
+                </div>
+
+                <div class="player-position right">
+                    <div class="player-avatar">🤖</div>
+                    <div class="player-name">بازیکن ۳</div>
+                </div>
+
+                <div class="player-position left">
+                    <div class="player-avatar">🤖</div>
+                    <div class="player-name">بازیکن ۴</div>
+                </div>
+
+                <div class="player-position bottom">
+                    <div class="player-avatar active">P</div>
+                    <div class="player-name">شما</div>
+                </div>
+
+                <div class="trump-display">
+                    <span>حکم:</span>
+                    <strong id="trump-suit">♠</strong>
+                </div>
+
+                <div class="trick-area">
+                    <div class="played-card top">♠A</div>
+                    <div class="played-card right">♥K</div>
+                    <div class="played-card left">♦Q</div>
+                    <div class="played-card bottom">♣J</div>
+                </div>
+
+                <div class="player-hand">
+                    <div class="hand-card">♠A</div>
+                    <div class="hand-card">♥K</div>
+                    <div class="hand-card">♦Q</div>
+                    <div class="hand-card">♣J</div>
+                    <div class="hand-card">♠10</div>
+                    <div class="hand-card">♥9</div>
+                    <div class="hand-card">♦8</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TRUMP SELECTION MODAL -->
+        <div id="trump-modal" class="trump-modal">
+            <div class="trump-content">
+                <div class="trump-title">حکم را انتخاب کن</div>
+                <div class="trump-options">
+                    <button class="trump-option" onclick="app.selectTrump('♠')">♠</button>
+                    <button class="trump-option" onclick="app.selectTrump('♥')" style="color: #dc2626;">♥</button>
+                    <button class="trump-option" onclick="app.selectTrump('♦')" style="color: #dc2626;">♦</button>
+                    <button class="trump-option" onclick="app.selectTrump('♣')">♣</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MATCH RESULT SCREEN -->
+        <div id="result-screen" class="result-screen">
+            <div class="result-content">
+                <div class="result-icon">🏆</div>
+                <div class="result-title win" id="result-title">پیروز شدید!</div>
+                <div class="result-score">
+                    <div>
+                        <div style="font-size: 12px; color: var(--text-secondary);">تیم شما</div>
+                        <div style="font-size: 32px; font-weight: 900;" id="result-team-score">7</div>
+                    </div>
+                    <div style="font-size: 32px; color: var(--text-secondary);">:</div>
+                    <div>
+                        <div style="font-size: 12px; color: var(--text-secondary);">حریف</div>
+                        <div style="font-size: 32px; font-weight: 900;" id="result-opponent-score">4</div>
+                    </div>
+                </div>
+                <div class="result-rewards">
+                    <div class="reward-item">
+                        <div class="reward-icon">🪙</div>
+                        <div class="reward-value">+500</div>
+                    </div>
+                    <div class="reward-item">
+                        <div class="reward-icon">⭐</div>
+                        <div class="reward-value">+100 XP</div>
+                    </div>
+                </div>
+                <button class="btn-primary btn-gold btn-full" onclick="app.closeResult()">
+                    <span>ادامه</span>
+                </button>
+            </div>
+        </div>
 
         <!-- PERMISSION MODAL -->
         <div id="permission-modal" class="modal-overlay">
             <div class="modal">
                 <div class="modal-icon">📱</div>
                 <h3 class="modal-title">اجازه دسترسی به پیامک</h3>
-                <p class="modal-description">
-                    آیا اجازه می‌دهید بازی کد تأیید را از پیامک بخواند؟
-                </p>
-                <div class="modal-code" id="modal-code">
-                    کد تأیید: ۱۲۴۶
-                </div>
+                <p class="modal-description">آیا اجازه می‌دهید بازی کد تأیید را از پیامک بخواند؟</p>
+                <div class="modal-code" id="modal-code">کد تأیید: ۱۳۴۵۶</div>
                 <div class="modal-buttons">
-                    <button class="btn-secondary" id="btn-deny-permission">رد کردن</button>
-                    <button class="btn-primary btn-gold" id="btn-grant-permission">اجازه دادن</button>
+                    <button class="btn-secondary" onclick="document.getElementById('permission-modal').classList.remove('active')">رد کردن</button>
+                    <button class="btn-primary btn-gold" onclick="document.getElementById('permission-modal').classList.remove('active')">اجازه دادن</button>
                 </div>
             </div>
         </div>
@@ -928,87 +1823,50 @@
     </div>
 
     <script>
-        // ============================================
-        // CONFIG
-        // ============================================
         const CONFIG = {
-            AUTH: {
-                OTP_LENGTH: 6,
-                OTP_RESEND_COOLDOWN: 60
-            },
-            STORAGE_KEYS: {
-                USER: 'hokm_user',
-                SESSION: 'hokm_session'
-            }
+            AUTH: { OTP_LENGTH: 6, OTP_RESEND_COOLDOWN: 60 },
+            STORAGE_KEYS: { USER: 'hokm_user', SESSION: 'hokm_session' }
         };
 
-        // ============================================
-        // STORAGE
-        // ============================================
         const storage = {
             set(key, value) {
-                try {
-                    localStorage.setItem(key, JSON.stringify(value));
-                    return true;
-                } catch (e) {
-                    return false;
-                }
+                try { localStorage.setItem(key, JSON.stringify(value)); return true; }
+                catch (e) { return false; }
             },
             get(key) {
                 try {
                     const data = localStorage.getItem(key);
                     return data ? JSON.parse(data) : null;
-                } catch (e) {
-                    return null;
-                }
+                } catch (e) { return null; }
             },
-            remove(key) {
-                localStorage.removeItem(key);
-            }
+            remove(key) { localStorage.removeItem(key); }
         };
 
-        // ============================================
-        // UTILS
-        // ============================================
         const Utils = {
             toPersianNumber(num) {
                 const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
                 return num.toString().replace(/\d/g, digit => persianDigits[digit]);
             },
-            
-            formatPhone(phone) {
-                const cleaned = phone.replace(/\D/g, '');
-                if (cleaned.length <= 3) return cleaned;
-                if (cleaned.length <= 7) return `${cleaned.slice(0, 3)} ${cleaned.slice(3)}`;
-                return `${cleaned.slice(0, 3)} ${cleaned.slice(3, 7)} ${cleaned.slice(7, 11)}`;
-            },
-            
             validatePhone(phone) {
                 const cleaned = phone.replace(/\D/g, '');
                 return /^09\d{9}$/.test(cleaned);
             },
-            
             generateOTP() {
                 return Math.floor(100000 + Math.random() * 900000).toString();
             },
-            
             generateUUID() {
                 return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
                     const r = Math.random() * 16 | 0;
                     return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
                 });
             },
-            
             showToast(message, type = 'info') {
                 const container = document.getElementById('toast-container');
                 if (!container) return;
-                
                 const toast = document.createElement('div');
                 toast.className = `toast ${type}`;
                 toast.textContent = message;
-                
                 container.appendChild(toast);
-                
                 setTimeout(() => {
                     toast.style.opacity = '0';
                     setTimeout(() => toast.remove(), 300);
@@ -1016,9 +1874,6 @@
             }
         };
 
-        // ============================================
-        // AUTH MANAGER
-        // ============================================
         const authManager = {
             currentUser: null,
             session: null,
@@ -1028,70 +1883,32 @@
                 if (!Utils.validatePhone(phone)) {
                     return { success: false, message: 'شماره موبایل معتبر نیست' };
                 }
-                
                 const otp = Utils.generateOTP();
-                this.tempOTP = {
-                    phone: phone,
-                    otp: otp,
-                    timestamp: Date.now(),
-                    expiry: Date.now() + 600000
-                };
-                
+                this.tempOTP = { phone, otp, timestamp: Date.now(), expiry: Date.now() + 600000 };
                 console.log('🔐 OTP Code:', otp);
-                
-                return { success: true, phone: phone, otp: otp };
+                return { success: true, phone, otp };
             },
             
             async verifyOTP(phone, otp) {
-                if (!this.tempOTP) {
-                    return { success: false, message: 'کد منقضی شده است' };
-                }
-                
-                if (this.tempOTP.phone !== phone) {
-                    return { success: false, message: 'شماره موبایل مطابقت ندارد' };
-                }
-                
-                if (Date.now() > this.tempOTP.expiry) {
-                    return { success: false, message: 'کد منقضی شده است' };
-                }
-                
-                if (this.tempOTP.otp !== otp) {
-                    return { success: false, message: 'کد وارد شده صحیح نیست' };
-                }
+                if (!this.tempOTP) return { success: false, message: 'کد منقضی شده است' };
+                if (this.tempOTP.phone !== phone) return { success: false, message: 'شماره موبایل مطابقت ندارد' };
+                if (Date.now() > this.tempOTP.expiry) return { success: false, message: 'کد منقضی شده است' };
+                if (this.tempOTP.otp !== otp) return { success: false, message: 'کد وارد شده صحیح نیست' };
                 
                 const user = {
                     id: Utils.generateUUID(),
-                    phone: phone,
+                    phone,
                     username: `Player${Math.floor(1000 + Math.random() * 9000)}`,
                     isGuest: false,
                     createdAt: Date.now(),
-                    profile: {
-                        level: 1,
-                        xp: 0,
-                        coins: 1000,
-                        gems: 0,
-                        rating: 1000,
-                        stats: {
-                            totalGames: 0,
-                            wins: 0,
-                            losses: 0
-                        }
-                    }
+                    profile: { level: 1, xp: 0, coins: 1000, gems: 0, rating: 1000, stats: { totalGames: 0, wins: 0, losses: 0 } }
                 };
-                
-                const session = {
-                    token: Utils.generateUUID(),
-                    userId: user.id,
-                    expiry: Date.now() + 2592000000
-                };
-                
+                const session = { token: Utils.generateUUID(), userId: user.id, expiry: Date.now() + 2592000000 };
                 storage.set(CONFIG.STORAGE_KEYS.USER, user);
                 storage.set(CONFIG.STORAGE_KEYS.SESSION, session);
-                
                 this.currentUser = user;
                 this.session = session;
-                
-                return { success: true, user: user };
+                return { success: true, user };
             },
             
             async loginAsGuest() {
@@ -1101,24 +1918,11 @@
                     username: `Guest${Math.floor(1000 + Math.random() * 9000)}`,
                     isGuest: true,
                     createdAt: Date.now(),
-                    profile: {
-                        level: 1,
-                        xp: 0,
-                        coins: 1000,
-                        gems: 0,
-                        rating: 1000,
-                        stats: {
-                            totalGames: 0,
-                            wins: 0,
-                            losses: 0
-                        }
-                    }
+                    profile: { level: 1, xp: 0, coins: 1000, gems: 0, rating: 1000, stats: { totalGames: 0, wins: 0, losses: 0 } }
                 };
-                
                 storage.set(CONFIG.STORAGE_KEYS.USER, user);
                 this.currentUser = user;
-                
-                return { success: true, user: user };
+                return { success: true, user };
             },
             
             logout() {
@@ -1128,18 +1932,10 @@
                 this.session = null;
             },
             
-            isLoggedIn() {
-                return this.currentUser !== null;
-            },
-            
-            getCurrentUser() {
-                return this.currentUser;
-            }
+            isLoggedIn() { return this.currentUser !== null; },
+            getCurrentUser() { return this.currentUser; }
         };
 
-        // ============================================
-        // APP CONTROLLER
-        // ============================================
         const app = {
             currentScreen: 'splash-screen',
             currentPage: 'home',
@@ -1148,20 +1944,16 @@
             countdown: 60,
             
             init() {
-                console.log('🎮 Hokm Game Initializing...');
-                
+                console.log('🎮 Hokm Master Initializing...');
                 this.setupNavigation();
                 this.setupAuthButtons();
-                this.setupMainAppButtons();
                 this.checkSession();
-                
                 console.log('✅ App Ready');
             },
             
             checkSession() {
                 const user = storage.get(CONFIG.STORAGE_KEYS.USER);
                 const session = storage.get(CONFIG.STORAGE_KEYS.SESSION);
-                
                 if (user && session && session.expiry > Date.now()) {
                     authManager.currentUser = user;
                     authManager.session = session;
@@ -1170,15 +1962,11 @@
             },
             
             setupNavigation() {
-                document.getElementById('back-to-splash')?.addEventListener('click', () => {
-                    this.showScreen('splash-screen');
-                });
-                
+                document.getElementById('back-to-splash')?.addEventListener('click', () => this.showScreen('splash-screen'));
                 document.getElementById('back-to-login')?.addEventListener('click', () => {
                     this.showScreen('login-screen');
                     this.stopTimer();
                 });
-                
                 document.getElementById('btn-change-phone')?.addEventListener('click', () => {
                     this.showScreen('login-screen');
                     this.stopTimer();
@@ -1186,54 +1974,32 @@
             },
             
             setupAuthButtons() {
-                document.getElementById('btn-phone-login')?.addEventListener('click', () => {
-                    this.showScreen('login-screen');
-                });
-                
+                document.getElementById('btn-phone-login')?.addEventListener('click', () => this.showScreen('login-screen'));
                 document.getElementById('btn-guest-login')?.addEventListener('click', async () => {
                     const result = await authManager.loginAsGuest();
-                    if (result.success) {
-                        this.showMainApp();
-                    }
+                    if (result.success) this.showMainApp();
                 });
-                
-                document.getElementById('btn-send-code')?.addEventListener('click', async () => {
-                    await this.handleSendCode();
-                });
+                document.getElementById('btn-send-code')?.addEventListener('click', async () => await this.handleSendCode());
                 
                 const phoneInput = document.getElementById('phone-input');
                 phoneInput?.addEventListener('input', (e) => {
                     let value = e.target.value.replace(/\D/g, '');
-                    if (value.length > 3 && value.length <= 7) {
-                        value = `${value.slice(0, 3)} ${value.slice(3)}`;
-                    } else if (value.length > 7) {
-                        value = `${value.slice(0, 3)} ${value.slice(3, 7)} ${value.slice(7, 11)}`;
-                    }
+                    if (value.length > 3 && value.length <= 7) value = `${value.slice(0, 3)} ${value.slice(3)}`;
+                    else if (value.length > 7) value = `${value.slice(0, 3)} ${value.slice(3, 7)} ${value.slice(7, 11)}`;
                     e.target.value = value;
                 });
-                
-                phoneInput?.addEventListener('keypress', (e) => {
-                    if (e.key === 'Enter') {
-                        this.handleSendCode();
-                    }
-                });
+                phoneInput?.addEventListener('keypress', (e) => { if (e.key === 'Enter') this.handleSendCode(); });
             },
             
             async handleSendCode() {
                 const phoneInput = document.getElementById('phone-input');
                 if (!phoneInput) return;
-                
                 const phone = phoneInput.value.replace(/\s/g, '');
-                
                 const result = await authManager.loginWithPhone(phone);
-                
                 if (result.success) {
                     this.phone = result.phone;
                     this.showScreen('otp-screen');
-                    
-                    setTimeout(() => {
-                        this.startOTP(result.phone, result.otp);
-                    }, 300);
+                    setTimeout(() => this.startOTP(result.phone, result.otp), 300);
                 } else {
                     Utils.showToast(result.message, 'error');
                 }
@@ -1241,39 +2007,25 @@
             
             startOTP(phone, otp) {
                 const displayPhone = document.getElementById('display-phone');
-                if (displayPhone) {
-                    displayPhone.textContent = '+98 ' + Utils.toPersianNumber(phone);
-                }
-                
+                if (displayPhone) displayPhone.textContent = '+98 ' + Utils.toPersianNumber(phone);
                 this.clearInputs();
                 this.startTimer();
-                
-                setTimeout(() => {
-                    document.querySelector('.code-input')?.focus();
-                }, 300);
-                
+                setTimeout(() => document.querySelector('.code-input')?.focus(), 300);
                 this.showPermissionModal(otp);
             },
             
-            setupMainAppButtons() {
+            setupCodeInputs() {
                 const codeInputs = document.querySelectorAll('.code-input');
                 codeInputs.forEach((input, index) => {
                     input.addEventListener('input', (e) => {
                         const value = e.target.value;
-                        if (!/^\d*$/.test(value)) {
-                            e.target.value = '';
-                            return;
-                        }
-                        
+                        if (!/^\d*$/.test(value)) { e.target.value = ''; return; }
                         if (value.length === 1) {
                             e.target.classList.add('filled');
-                            if (index < codeInputs.length - 1) {
-                                codeInputs[index + 1].focus();
-                            }
+                            if (index < codeInputs.length - 1) codeInputs[index + 1].focus();
                             this.checkComplete();
                         }
                     });
-                    
                     input.addEventListener('keydown', (e) => {
                         if (e.key === 'Backspace' && !e.target.value && index > 0) {
                             codeInputs[index - 1].focus();
@@ -1281,51 +2033,29 @@
                             codeInputs[index - 1].classList.remove('filled');
                         }
                     });
-                    
                     input.addEventListener('focus', (e) => e.target.select());
                 });
-                
-                document.getElementById('btn-verify-code')?.addEventListener('click', () => {
-                    this.verifyCode();
-                });
-                
-                document.getElementById('btn-resend')?.addEventListener('click', () => {
-                    this.resendCode();
-                });
-                
-                document.getElementById('btn-grant-permission')?.addEventListener('click', () => {
-                    document.getElementById('permission-modal').classList.remove('active');
-                });
-                
-                document.getElementById('btn-deny-permission')?.addEventListener('click', () => {
-                    document.getElementById('permission-modal').classList.remove('active');
-                });
+                document.getElementById('btn-verify-code')?.addEventListener('click', () => this.verifyCode());
+                document.getElementById('btn-resend')?.addEventListener('click', () => this.resendCode());
             },
             
             checkComplete() {
                 const code = this.getCode();
-                if (code.length === 6) {
-                    setTimeout(() => this.verifyCode(), 300);
-                }
+                if (code.length === 6) setTimeout(() => this.verifyCode(), 300);
             },
             
             getCode() {
-                return Array.from(document.querySelectorAll('.code-input'))
-                    .map(input => input.value)
-                    .join('');
+                return Array.from(document.querySelectorAll('.code-input')).map(input => input.value).join('');
             },
             
             async verifyCode() {
                 const code = this.getCode();
-                
                 if (code.length !== 6) {
                     Utils.showToast('لطفاً کد ۶ رقمی را وارد کنید', 'error');
                     this.shakeInputs();
                     return;
                 }
-                
                 const result = await authManager.verifyOTP(this.phone, code);
-                
                 if (result.success) {
                     this.stopTimer();
                     this.showMainApp();
@@ -1340,9 +2070,7 @@
             
             resendCode() {
                 if (this.countdown > 0) return;
-                
-                const result = authManager.loginWithPhone(this.phone);
-                result.then(res => {
+                authManager.loginWithPhone(this.phone).then(res => {
                     if (res.success) {
                         this.countdown = 60;
                         this.startTimer();
@@ -1355,19 +2083,12 @@
             
             startTimer() {
                 this.stopTimer();
-                
                 const countdownEl = document.getElementById('countdown');
                 const resendBtn = document.getElementById('btn-resend');
-                
                 if (resendBtn) resendBtn.classList.add('disabled');
-                
                 this.otpTimer = setInterval(() => {
                     this.countdown--;
-                    
-                    if (countdownEl) {
-                        countdownEl.textContent = Utils.toPersianNumber(this.countdown);
-                    }
-                    
+                    if (countdownEl) countdownEl.textContent = Utils.toPersianNumber(this.countdown);
                     if (this.countdown <= 0) {
                         this.stopTimer();
                         if (resendBtn) resendBtn.classList.remove('disabled');
@@ -1376,10 +2097,7 @@
             },
             
             stopTimer() {
-                if (this.otpTimer) {
-                    clearInterval(this.otpTimer);
-                    this.otpTimer = null;
-                }
+                if (this.otpTimer) { clearInterval(this.otpTimer); this.otpTimer = null; }
             },
             
             clearInputs() {
@@ -1393,23 +2111,15 @@
                 const container = document.getElementById('code-inputs');
                 if (container) {
                     container.style.animation = 'shake 0.5s';
-                    setTimeout(() => {
-                        container.style.animation = '';
-                    }, 500);
+                    setTimeout(() => container.style.animation = '', 500);
                 }
             },
             
             showPermissionModal(otp) {
                 const modal = document.getElementById('permission-modal');
                 const codeDisplay = document.getElementById('modal-code');
-                
-                if (codeDisplay) {
-                    codeDisplay.textContent = `کد تأیید: ${Utils.toPersianNumber(otp)}`;
-                }
-                
-                if (modal) {
-                    modal.classList.add('active');
-                }
+                if (codeDisplay) codeDisplay.textContent = `کد تأیید: ${Utils.toPersianNumber(otp)}`;
+                if (modal) modal.classList.add('active');
             },
             
             showMainApp() {
@@ -1422,7 +2132,6 @@
                     screen.classList.remove('active');
                     screen.classList.add('hidden');
                 });
-                
                 const targetScreen = document.getElementById(screenId);
                 if (targetScreen) {
                     targetScreen.classList.remove('hidden');
@@ -1431,31 +2140,66 @@
                 }
             },
             
+            showPage(pageId) {
+                document.querySelectorAll('.page').forEach(page => page.classList.remove('active-page'));
+                const targetPage = document.getElementById(`${pageId}-page`);
+                if (targetPage) {
+                    targetPage.classList.add('active-page');
+                    this.currentPage = pageId;
+                    document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+                }
+            },
+            
             updateUserProfile() {
                 const user = authManager.getCurrentUser();
                 if (!user) return;
-                
                 const headerUsername = document.getElementById('header-username');
                 const headerLevel = document.getElementById('header-level');
                 const headerCoins = document.getElementById('header-coins');
-                
-                if (headerUsername) {
-                    headerUsername.textContent = user.username;
+                const profileUsername = document.getElementById('profile-username');
+                if (headerUsername) headerUsername.textContent = user.username;
+                if (headerLevel) headerLevel.textContent = `سطح ${Utils.toPersianNumber(user.profile.level)}`;
+                if (headerCoins) headerCoins.textContent = Utils.toPersianNumber(user.profile.coins.toLocaleString());
+                if (profileUsername) profileUsername.textContent = user.username;
+            },
+            
+            startQuickMatch() {
+                this.showScreen('game-screen');
+                setTimeout(() => {
+                    document.getElementById('trump-modal').classList.add('active');
+                }, 1000);
+            },
+            
+            selectTrump(suit) {
+                document.getElementById('trump-suit').textContent = suit;
+                document.getElementById('trump-modal').classList.remove('active');
+                Utils.showToast(`حکم ${suit} انتخاب شد`, 'success');
+            },
+            
+            leaveGame() {
+                if (confirm('آیا می‌خواهید از بازی خارج شوید؟')) {
+                    this.showScreen('main-screen');
+                    this.showPage('home');
                 }
-                
-                if (headerLevel) {
-                    headerLevel.textContent = `سطح ${Utils.toPersianNumber(user.profile.level)}`;
-                }
-                
-                if (headerCoins) {
-                    headerCoins.textContent = Utils.toPersianNumber(user.profile.coins.toLocaleString());
+            },
+            
+            closeResult() {
+                document.getElementById('result-screen').classList.remove('active');
+                this.showScreen('main-screen');
+                this.showPage('home');
+            },
+            
+            logout() {
+                if (confirm('آیا می‌خواهید خارج شوید؟')) {
+                    authManager.logout();
+                    this.showScreen('splash-screen');
                 }
             }
         };
 
-        // Initialize
         document.addEventListener('DOMContentLoaded', () => {
             app.init();
+            app.setupCodeInputs();
         });
     </script>
 
