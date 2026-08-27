@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0a1f1c">
+    <meta name="description" content="حکم - بازی کلاسیک کارت ایرانی">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <title>حکم | بازی کلاسیک کارت ایرانی</title>
+    
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="app" class="app">
+
+        <!-- ============================================
+             SPLASH SCREEN
+        ============================================ -->
+        <section id="splash-screen" class="screen splash-screen active">
+            <div class="splash-content">
+                <div class="splash-logo">
+                    <div class="logo-crest">
+                        <div class="crest-crown">👑</div>
+                        <div class="crest-symbols">
+                            <span class="symbol spade"></span>
+                            <span class="symbol heart">♥</span>
+                            <span class="symbol diamond">♦</span>
+                            <span class="symbol club">♣</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <h1 class="game-title">حکم</h1>
+                <p class="game-subtitle">بازی کلاسیک کارت ایرانی</p>
+                
+                <div class="splash-buttons">
+                    <button id="btn-phone-login" class="btn-primary btn-gold">
+                        <span class="btn-icon"></span>
+                        <span class="btn-text">ورود با شماره موبایل</span>
+                    </button>
+                    
+                    <button id="btn-guest-login" class="btn-secondary">
+                        <span class="btn-icon"></span>
+                        <span class="btn-text">ادامه به‌عنوان مهمان</span>
+                    </button>
+                </div>
+                
+                <p class="privacy-notice">
+                    با ادامه، شما با <a href="#" id="privacy-link">حریم خصوصی</a> موافقت می‌کنید
+                </p>
+            </div>
+        </section>
+
+        <!-- ============================================
+             LOGIN SCREEN
+        ============================================ -->
+        <section id="login-screen" class="screen login-screen">
+            <button class="nav-back-btn" id="back-to-splash">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                </svg>
+            </button>
+            
+            <div class="login-content">
+                <div class="login-header">
+                    <h1 class="screen-title">ورود با موبایل</h1>
+                    <p class="screen-description">
+                        شماره موبایل خود را وارد کنید تا کد تأیید برایتان ارسال شود.
+                    </p>
+                </div>
+                
+                <div class="input-group">
+                    <label class="input-label" for="phone-input">شماره موبایل</label>
+                    <div class="phone-input-wrapper">
+                        <div class="country-selector">
+                            <span class="flag-icon ir"></span>
+                            <span class="country-code">+۹۸</span>
+                        </div>
+                        <input 
+                            type="tel" 
+                            id="phone-input" 
+                            class="phone-input" 
+                            placeholder="۱۲ ۳۴۵ ۶۷۸۹"
+                            maxlength="11"
+                            autocomplete="tel"
+                            inputmode="numeric"
+                        >
+                    </div>
+                </div>
+                
+                <button id="btn-send-code" class="btn-primary btn-gold btn-full">
+                    <span class="btn-text">ادامه</span>
+                    <span class="btn-arrow">←</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- ============================================
+             OTP VERIFICATION SCREEN
+        ============================================ -->
+        <section id="otp-screen" class="screen otp-screen">
+            <button class="nav-back-btn" id="back-to-login">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                </svg>
+            </button>
+            
+            <div class="otp-content">
+                <div class="otp-header">
+                    <h1 class="screen-title">تأیید شماره موبایل</h1>
+                    <div class="phone-display">
+                        <span id="display-phone" class="phone-number"></span>
+                        <button id="btn-change-phone" class="change-phone-btn">تغییر</button>
+                    </div>
+                    <p class="screen-description">
+                        کد ۶ رقمی ارسال‌شده به شماره بالا را وارد کنید
+                    </p>
+                </div>
+                
+                <div class="code-inputs" id="code-inputs">
+                    <input type="tel" class="code-input" maxlength="1" data-index="0" inputmode="numeric">
+                    <input type="tel" class="code-input" maxlength="1" data-index="1" inputmode="numeric">
+                    <input type="tel" class="code-input" maxlength="1" data-index="2" inputmode="numeric">
+                    <input type="tel" class="code-input" maxlength="1" data-index="3" inputmode="numeric">
+                    <input type="tel" class="code-input" maxlength="1" data-index="4" inputmode="numeric">
+                    <input type="tel" class="code-input" maxlength="1" data-index="5" inputmode="numeric">
+                </div>
+                
+                <div class="resend-section">
+                    <div id="timer-display" class="timer-display">
+                        <span class="timer-icon">⏱</span>
+                        <span>ارسال مجدد در <span id="countdown" class="countdown">۶۰</span> ثانیه</span>
+                    </div>
+                    <button id="btn-resend" class="resend-btn disabled">ارسال مجدد کد</button>
+                </div>
+                
+                <button id="btn-verify-code" class="btn-primary btn-gold btn-full">
+                    <span class="btn-text">تأیید</span>
+                    <span class="btn-arrow">→</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- ============================================
+             MAIN APP SCREEN
+        ============================================ -->
+        <section id="main-screen" class="screen main-screen">
+            
+            <!-- TOP HEADER -->
+            <header class="main-header">
+                <div class="header-right">
+                    <button id="btn-profile" class="header-btn profile-btn">
+                        <div class="avatar-small" id="header-avatar"></div>
+                        <div class="user-info">
+                            <span class="username" id="header-username">بازیکن</span>
+                            <div class="level-badge">
+                                <span class="level-icon">⭐</span>
+                                <span class="level-text" id="header-level">سطح ۱</span>
+                            </div>
+                        </div>
+                    </button>
+                </div>
+                
+                <div class="header-left">
+                    <button id="btn-coins" class="header-btn currency-btn">
+                        <span class="currency-icon">🪙</span>
+                        <span class="currency-amount" id="header-coins">۱,۰۰۰</span>
+                    </button>
+                    
+                    <button id="btn-notifications" class="header-btn icon-btn">
+                        <span class="icon">🔔</span>
+                        <span class="badge hidden" id="notif-badge">0</span>
+                    </button>
+                    
+                    <button id="btn-settings" class="header-btn icon-btn">
+                        <span class="icon">️</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- PAGE CONTAINER -->
+            <main class="page-container">
+                
+                <!-- HOME PAGE -->
+                <div id="home-page" class="page active-page">
+                    <div class="home-content">
+                        
+                        <!-- DAILY REWARDS -->
+                        <div class="daily-reward-card">
+                            <div class="reward-icon">🎁</div>
+                            <div class="reward-info">
+                                <span class="reward-label">جایزه روزانه</span>
+                                <strong class="reward-title">روز ۳ از ۷</strong>
+                            </div>
+                            <button class="btn-small btn-gold" id="btn-claim-daily">دریافت</button>
+                        </div>
+                        
+                        <!-- QUICK PLAY -->
+                        <div class="quick-play-section">
+                            <h2 class="section-title">بازی سریع</h2>
+                            <button id="btn-quick-match" class="btn-primary btn-gold btn-large">
+                                <span class="btn-icon"></span>
+                                <div class="btn-content">
+                                    <strong>شروع بازی</strong>
+                                    <small>پیدا کردن بازیکنان</small>
+                                </div>
+                                <span class="btn-arrow">←</span>
+                            </button>
+                        </div>
+                        
+                        <!-- GAME MODES -->
+                        <div class="game-modes-section">
+                            <h2 class="section-title">حالت‌های بازی</h2>
+                            <div class="modes-grid">
+                                <button class="mode-card" data-mode="classic">
+                                    <div class="mode-icon"></div>
+                                    <strong>کلاسیک</strong>
+                                    <small>بازی استاندارد</small>
+                                </button>
+                                
+                                <button class="mode-card" data-mode="ranked">
+                                    <div class="mode-icon"></div>
+                                    <strong>رقابتی</strong>
+                                    <small>افزایش رتبه</small>
+                                </button>
+                                
+                                <button class="mode-card" data-mode="private">
+                                    <div class="mode-icon">👥</div>
+                                    <strong>اتاق خصوصی</strong>
+                                    <small>با دوستان</small>
+                                </button>
+                                
+                                <button class="mode-card" data-mode="ai">
+                                    <div class="mode-icon">🤖</div>
+                                    <strong>تمرینی</strong>
+                                    <small>با هوش مصنوعی</small>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- TOURNAMENT -->
+                        <div class="tournament-card">
+                            <div class="tournament-header">
+                                <div class="tournament-icon">🏅</div>
+                                <div class="tournament-info">
+                                    <strong>تورنمنت ویژه</strong>
+                                    <small>جایزه: ۱۰,۰۰ سکه</small>
+                                </div>
+                            </div>
+                            <button class="btn-small btn-gold">ثبت‌نام</button>
+                        </div>
+                        
+                        <!-- LEAGUE -->
+                        <div class="league-card">
+                            <div class="league-header">
+                                <div class="league-icon">🥇</div>
+                                <div class="league-info">
+                                    <strong>لیگ برنز</strong>
+                                    <div class="league-progress">
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 45%"></div>
+                                        </div>
+                                        <span class="progress-text">۴۵۰ / ۱۰۰۰ LP</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- MISSIONS -->
+                        <div class="missions-card">
+                            <div class="mission-item">
+                                <div class="mission-icon">🎯</div>
+                                <div class="mission-info">
+                                    <strong>۳ بازی انجام بده</strong>
+                                    <div class="mission-progress">
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 66%"></div>
+                                        </div>
+                                        <span>۲/۳</span>
+                                    </div>
+                                </div>
+                                <button class="btn-small">دریافت</button>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+                <!-- GAME PAGE -->
+                <div id="game-page" class="page">
+                    <div class="game-content">
+                        <div class="game-table">
+                            <!-- بازیکن بالا -->
+                            <div class="player-position top">
+                                <div class="player-avatar">🤖</div>
+                                <div class="player-name">بازیکن </div>
+                            </div>
+                            
+                            <!-- بازیکن راست -->
+                            <div class="player-position right">
+                                <div class="player-avatar">🤖</div>
+                                <div class="player-name">بازیکن ۳</div>
+                            </div>
+                            
+                            <!-- بازیکن چپ -->
+                            <div class="player-position left">
+                                <div class="player-avatar">🤖</div>
+                                <div class="player-name">بازیکن ۴</div>
+                            </div>
+                            
+                            <!-- بازیکن پایین (شما) -->
+                            <div class="player-position bottom">
+                                <div class="player-avatar">👤</div>
+                                <div class="player-name">شما</div>
+                            </div>
+                            
+                            <!-- ناحیه کارت‌های بازی‌شده -->
+                            <div class="trick-area">
+                                <div class="played-card-slot top"></div>
+                                <div class="played-card-slot right"></div>
+                                <div class="played-card-slot bottom"></div>
+                                <div class="played-card-slot left"></div>
+                            </div>
+                            
+                            <!-- نمایش حکم -->
+                            <div class="trump-display">
+                                <span>حکم:</span>
+                                <strong id="trump-suit">♠</strong>
+                            </div>
+                            
+                            <!-- امتیاز -->
+                            <div class="score-display">
+                                <div class="team-score">
+                                    <span>تیم شما</span>
+                                    <strong id="team-score">0</strong>
+                                </div>
+                                <div class="score-divider">:</div>
+                                <div class="team-score">
+                                    <span>حریف</span>
+                                    <strong id="opponent-score">0</strong>
+                                </div>
+                            </div>
+                            
+                            <!-- دست کارت‌های شما -->
+                            <div class="player-hand" id="player-hand">
+                                <!-- کارت‌ها توسط JS اضافه می‌شوند -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- PROFILE PAGE -->
+                <div id="profile-page" class="page">
+                    <div class="profile-content">
+                        <div class="profile-header">
+                            <div class="profile-avatar-large"></div>
+                            <h2 class="profile-name" id="profile-username">بازیکن</h2>
+                            <div class="profile-level">
+                                <span class="level-icon">⭐</span>
+                                <span>سطح <strong id="profile-level">1</strong></span>
+                            </div>
+                        </div>
+                        
+                        <div class="profile-stats">
+                            <div class="stat-card">
+                                <strong id="stat-games">0</strong>
+                                <span>بازی</span>
+                            </div>
+                            <div class="stat-card">
+                                <strong id="stat-wins">0</strong>
+                                <span>برد</span>
+                            </div>
+                            <div class="stat-card">
+                                <strong id="stat-winrate">0%</strong>
+                                <span>درصد برد</span>
+                            </div>
+                            <div class="stat-card">
+                                <strong id="stat-rating">1000</strong>
+                                <span>امتیاز</span>
+                            </div>
+                        </div>
+                        
+                        <div class="profile-section">
+                            <h3>آمار کلی</h3>
+                            <div class="stats-list">
+                                <div class="stat-row">
+                                    <span>تعداد دست‌های برده</span>
+                                    <strong id="stat-tricks">0</strong>
+                                </div>
+                                <div class="stat-row">
+                                    <span>تعداد کات</span>
+                                    <strong id="stat-kot">0</strong>
+                                </div>
+                                <div class="stat-row">
+                                    <span>بهترین برد متوالی</span>
+                                    <strong id="stat-streak">0</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- SHOP PAGE -->
+                <div id="shop-page" class="page">
+                    <div class="shop-content">
+                        <div class="shop-header">
+                            <h2 class="page-title">فروشگاه</h2>
+                            <div class="currency-display">
+                                <span class="currency-icon">🪙</span>
+                                <strong id="shop-coins">1,000</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="shop-tabs">
+                            <button class="shop-tab active" data-tab="featured">ویژه</button>
+                            <button class="shop-tab" data-tab="cards">کارت</button>
+                            <button class="shop-tab" data-tab="avatars">آواتار</button>
+                            <button class="shop-tab" data-tab="tables">میز</button>
+                        </div>
+                        
+                        <div class="shop-items" id="shop-items">
+                            <!-- آیتم‌ها توسط JS اضافه می‌شوند -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- LEADERBOARD PAGE -->
+                <div id="leaderboard-page" class="page">
+                    <div class="leaderboard-content">
+                        <h2 class="page-title">رتبه‌بندی</h2>
+                        
+                        <div class="leaderboard-tabs">
+                            <button class="lb-tab active" data-tab="global">جهانی</button>
+                            <button class="lb-tab" data-tab="friends">دوستان</button>
+                            <button class="lb-tab" data-tab="league">لیگ</button>
+                        </div>
+                        
+                        <div class="leaderboard-list" id="leaderboard-list">
+                            <!-- بازیکنان توسط JS اضافه می‌شوند -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- FRIENDS PAGE -->
+                <div id="friends-page" class="page">
+                    <div class="friends-content">
+                        <h2 class="page-title">دوستان</h2>
+                        
+                        <div class="friends-search">
+                            <input type="search" placeholder="جستجوی بازیکن..." id="friend-search">
+                            <button class="btn-search">🔍</button>
+                        </div>
+                        
+                        <div class="friends-tabs">
+                            <button class="friend-tab active" data-tab="friends">دوستان</button>
+                            <button class="friend-tab" data-tab="requests">درخواست‌ها</button>
+                        </div>
+                        
+                        <div class="friends-list" id="friends-list">
+                            <!-- دوستان توسط JS اضافه می‌شوند -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- SETTINGS PAGE -->
+                <div id="settings-page" class="page">
+                    <div class="settings-content">
+                        <h2 class="page-title">تنظیمات</h2>
+                        
+                        <div class="settings-group">
+                            <h3>صدا</h3>
+                            <div class="setting-item">
+                                <span>صدای بازی</span>
+                                <label class="switch">
+                                    <input type="checkbox" id="sound-toggle" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <span>موسیقی</span>
+                                <label class="switch">
+                                    <input type="checkbox" id="music-toggle" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-group">
+                            <h3>بازی</h3>
+                            <div class="setting-item">
+                                <span>لرزش</span>
+                                <label class="switch">
+                                    <input type="checkbox" id="vibration-toggle" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <span>انیمیشن</span>
+                                <label class="switch">
+                                    <input type="checkbox" id="animation-toggle" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-group">
+                            <h3>حساب</h3>
+                            <button class="settings-btn" id="btn-logout">
+                                <span>خروج از حساب</span>
+                                <span class="btn-arrow">←</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+            </main>
+
+            <!-- BOTTOM NAVIGATION -->
+            <nav class="bottom-nav">
+                <button class="nav-item active" data-page="home">
+                    <span class="nav-icon"></span>
+                    <span class="nav-label">خانه</span>
+                </button>
+                <button class="nav-item" data-page="leaderboard">
+                    <span class="nav-icon">🏆</span>
+                    <span class="nav-label">رتبه‌بندی</span>
+                </button>
+                <button class="nav-item nav-play" data-page="game">
+                    <span class="nav-icon">🎮</span>
+                    <span class="nav-label">بازی</span>
+                </button>
+                <button class="nav-item" data-page="friends">
+                    <span class="nav-icon">👥</span>
+                    <span class="nav-label">دوستان</span>
+                </button>
+                <button class="nav-item" data-page="profile">
+                    <span class="nav-icon">👤</span>
+                    <span class="nav-label">پروفایل</span>
+                </button>
+            </nav>
+            
+        </section>
+
+        <!-- ============================================
+             MODALS
+        ============================================ -->
+        
+        <!-- PERMISSION MODAL -->
+        <div id="permission-modal" class="modal-overlay">
+            <div class="modal permission-modal">
+                <div class="modal-icon">📱</div>
+                <h3 class="modal-title">اجازه دسترسی به پیامک</h3>
+                <p class="modal-description">
+                    آیا اجازه می‌دهید بازی کد تأیید را از پیامک بخواند؟
+                </p>
+                <div class="modal-code" id="modal-code">
+                    کد تأیید: ۱۲۴۵۶
+                </div>
+                <div class="modal-buttons">
+                    <button class="btn-secondary" id="btn-deny-permission">رد کردن</button>
+                    <button class="btn-primary btn-gold" id="btn-grant-permission">اجازه دادن</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TOAST CONTAINER -->
+        <div id="toast-container" class="toast-container"></div>
+
+    </div>
+
+    <script src="js/app.js"></script>
+
+</body>
+</html>
